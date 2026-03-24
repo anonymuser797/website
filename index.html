@@ -5,14 +5,23 @@
 </head>
 <body style="font-family:sans-serif; text-align:center;">
 
-  <!-- LOGIN -->
-  <div id="login">
-    <h2>Login</h2>
-    <input id="user" placeholder="Nomor HP"><br><br>
-    <input id="pass" type="password" placeholder="PIN"><br><br>
-    <button onclick="login()">Login</button>
-    <p id="error"></p>
-  </div>
+<script>
+function login() {
+  let u = document.getElementById("user").value;
+  let p = document.getElementById("pass").value;
+
+  // Validasi angka & panjang
+  let userValid = /^[0-9]{12}$/.test(u);
+  let passValid = /^[0-9]{6}$/.test(p);
+
+  if (userValid && passValid) {
+    showPage('home');
+  } else {
+    document.getElementById("error").innerHTML =
+      "Username harus 12 digit & PIN harus 6 digit angka!";
+  }
+}
+</script>
 
   <!-- HOME -->
   <div id="home" style="display:none;">
