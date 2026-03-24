@@ -3,30 +3,24 @@
 <head>
   <title>Demo Wallet</title>
 </head>
-<body style="font-family:sans-serif; text-align:center;">
+<body style="font-family:sans-serif; text-align:center; background:#f5f5f5;">
 
-<script>
-function login() {
-  let u = document.getElementById("user").value;
-  let p = document.getElementById("pass").value;
+  <!-- LOGIN -->
+  <div id="login">
+    <h2>Login</h2>
 
-  // Validasi angka & panjang
-  let userValid = /^[0-9]{12}$/.test(u);
-  let passValid = /^[0-9]{6}$/.test(p);
+    <input id="user" placeholder="Nomor (12 digit)" maxlength="12"><br><br>
+    <input id="pass" type="password" placeholder="PIN (6 digit)" maxlength="6"><br><br>
 
-  if (userValid && passValid) {
-    showPage('home');
-  } else {
-    document.getElementById("error").innerHTML =
-      "Username harus 12 digit & PIN harus 6 digit angka!";
-  }
-}
-</script>
+    <button onclick="login()">Login</button>
+
+    <p id="error" style="color:red;"></p>
+  </div>
 
   <!-- HOME -->
   <div id="home" style="display:none;">
     <h2>Home</h2>
-    <h3>Saldo: Rp 1.000.000</h3>
+    <h3 id="saldo">Saldo: Rp 1.000.000</h3>
 
     <button onclick="showPage('transfer')">Transfer</button>
     <button onclick="logout()">Logout</button>
@@ -35,22 +29,29 @@ function login() {
   <!-- TRANSFER -->
   <div id="transfer" style="display:none;">
     <h2>Transfer</h2>
-    <input placeholder="Nomor tujuan"><br><br>
-    <input placeholder="Jumlah"><br><br>
+
+    <input id="tujuan" placeholder="Nomor tujuan"><br><br>
+    <input id="jumlah" placeholder="Jumlah transfer"><br><br>
 
     <button onclick="kirim()">Kirim</button><br><br>
     <button onclick="showPage('home')">Kembali</button>
   </div>
 
   <script>
+    let saldo = 1000000;
+
     function login() {
       let u = document.getElementById("user").value;
       let p = document.getElementById("pass").value;
 
-      if (u === "08123456789" && p === "1234") {
+      let userValid = /^[0-9]{12}$/.test(u);
+      let passValid = /^[0-9]{6}$/.test(p);
+
+      if (userValid && passValid) {
         showPage('home');
       } else {
-        document.getElementById("error").innerHTML = "Login gagal";
+        document.getElementById("error").innerHTML =
+          "Nomor harus 12 digit & PIN harus 6 digit angka!";
       }
     }
 
@@ -67,7 +68,22 @@ function login() {
     }
 
     function kirim() {
-      alert("Transfer berhasil (ini hanya demo)");
+      let jumlah = parseInt(document.getElementById("jumlah").value);
+
+      if (isNaN(jumlah) || jumlah <= 0) {
+        alert("Masukkan jumlah yang benar");
+        return;
+      }
+
+      if (jumlah > saldo) {
+        alert("Saldo tidak cukup!");
+        return;
+      }
+
+      saldo -= jumlah;
+      document.getElementById("saldo").innerHTML = "Saldo: Rp " + saldo;
+
+      alert("Transfer berhasil!");
       showPage('home');
     }
   </script>
