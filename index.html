@@ -2,151 +2,173 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DANA</title>
+<title>Blue Wallet</title>
 
 <style>
 body {
   margin:0;
-  font-family: 'Segoe UI', sans-serif;
-  background:#f1f3f6;
+  font-family:'Segoe UI', sans-serif;
+}
+
+/* BACKGROUND */
+.hero {
+  height:100vh;
+  background:linear-gradient(rgba(16,142,233,0.8), rgba(54,207,201,0.8)), url('bg.jpg');
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  color:white;
+  position:relative;
 }
 
 /* HEADER */
 .header {
-  background:#108ee9;
-  color:white;
-  padding:20px;
-  border-bottom-left-radius:20px;
-  border-bottom-right-radius:20px;
-}
-
-.saldo-card {
-  background:linear-gradient(90deg,#108ee9,#36cfc9);
-  padding:20px;
-  border-radius:15px;
-  margin-top:15px;
-  box-shadow:0 5px 20px rgba(0,0,0,0.2);
-}
-
-.menu {
   display:flex;
-  justify-content:space-around;
-  margin-top:20px;
+  justify-content:space-between;
+  padding:20px;
+  font-weight:bold;
+}
+
+.logo {
+  font-size:22px;
+}
+
+/* CONTENT */
+.content {
   text-align:center;
+  padding:20px;
 }
 
-.menu div {
+.badge {
+  display:inline-block;
   background:white;
+  color:#108ee9;
+  padding:8px 15px;
+  border-radius:20px;
+  font-weight:bold;
+  margin-bottom:15px;
+}
+
+h1 {
+  font-size:20px;
+}
+
+.tagline {
+  font-size:26px;
+  font-weight:bold;
+  margin-top:10px;
+}
+
+/* BUTTON */
+.btn {
+  background:white;
+  color:#108ee9;
+  border:none;
   padding:15px;
-  border-radius:15px;
-  width:70px;
-  box-shadow:0 3px 10px rgba(0,0,0,0.1);
+  border-radius:30px;
+  width:80%;
+  max-width:320px;
+  font-size:18px;
+  font-weight:bold;
+  margin:20px auto;
+  display:block;
+  box-shadow:0 5px 20px rgba(0,0,0,0.3);
 }
 
-.menu div:active {
-  transform:scale(0.95);
-}
-
-/* FITUR GRID */
-.grid {
-  display:grid;
-  grid-template-columns: repeat(4,1fr);
-  gap:10px;
-  padding:15px;
-}
-
-.grid div {
+/* MENU */
+#menu {
+  position:absolute;
+  top:0;
+  right:-250px;
+  width:220px;
+  height:100%;
   background:white;
-  padding:10px;
-  border-radius:15px;
-  text-align:center;
-  font-size:12px;
-  box-shadow:0 3px 10px rgba(0,0,0,0.1);
+  color:black;
+  padding:20px;
+  transition:0.3s;
+  z-index:2;
 }
 
-/* NAVBAR */
-.navbar {
-  position:fixed;
-  bottom:0;
-  width:100%;
-  background:white;
-  display:flex;
-  justify-content:space-around;
+#menu p {
   padding:10px 0;
-  box-shadow:0 -3px 10px rgba(0,0,0,0.1);
+  border-bottom:1px solid #eee;
+  cursor:pointer;
+}
+
+/* OVERLAY */
+#overlay {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+  display:none;
+  z-index:1;
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<div class="header">
-  <h2>Blue Wallet</h2>
+<div class="hero">
 
-  <div class="saldo-card">
-    <p>Saldo</p>
-    <h1 id="saldo">Rp 1.250.000</h1>
+  <!-- OVERLAY -->
+  <div id="overlay" onclick="toggleMenu()"></div>
+
+  <!-- MENU -->
+  <div id="menu">
+    <h3>Menu</h3>
+    <p onclick="alert('Profile')">👤 Profile</p>
+    <p onclick="alert('Pengaturan')">⚙️ Pengaturan</p>
+    <p onclick="alert('Bantuan')">❓ Bantuan</p>
+    <p onclick="alert('Logout')">🚪 Logout</p>
   </div>
-</div>
 
-<!-- MENU CEPAT -->
-<div class="menu">
-  <div onclick="kirim()">💸<br>Kirim</div>
-  <div onclick="topup()">➕<br>Top Up</div>
-  <div onclick="request()">📥<br>Minta</div>
-  <div onclick="scan()">📷<br>Scan</div>
-</div>
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">Blue</div>
+    <div style="font-size:22px; cursor:pointer;" onclick="toggleMenu()">☰</div>
+  </div>
 
-<!-- FITUR -->
-<div class="grid">
-  <div>📱 Pulsa</div>
-  <div>💡 Listrik</div>
-  <div>🎮 Game</div>
-  <div>💳 Kartu</div>
-  <div>🚗 Transport</div>
-  <div>🛒 Belanja</div>
-  <div>📦 Paket</div>
-  <div>➕ Lainnya</div>
-</div>
+  <!-- CONTENT -->
+  <div class="content">
+    <div class="badge">🔒 Blue Protection</div>
+    <h1>JAMINAN 100% UANG KEMBALI</h1>
+    <div class="tagline">#AMAN DARI PENIPU</div>
 
-<!-- NAVBAR -->
-<div class="navbar">
-  <div>🏠 Home</div>
-  <div>📄 History</div>
-  <div>👤 Profile</div>
+    <button class="btn" onclick="masuk()">Masuk Sekarang</button>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="text-align:center; padding-bottom:20px; font-size:12px;">
+    Blue Wallet versi demo
+  </div>
+
 </div>
 
 <script>
-let saldo = 1250000;
+let buka = false;
 
-function updateSaldo(){
-  document.getElementById("saldo").innerText =
-    "Rp " + saldo.toLocaleString();
-}
+function toggleMenu(){
+  let menu = document.getElementById("menu");
+  let overlay = document.getElementById("overlay");
 
-function kirim(){
-  let j = prompt("Kirim berapa?");
-  if(j){
-    saldo -= parseInt(j);
-    updateSaldo();
+  if(!buka){
+    menu.style.right = "0";
+    overlay.style.display = "block";
+    buka = true;
+  } else {
+    menu.style.right = "-250px";
+    overlay.style.display = "none";
+    buka = false;
   }
 }
 
-function topup(){
-  let j = prompt("Top up berapa?");
-  if(j){
-    saldo += parseInt(j);
-    updateSaldo();
-  }
-}
-
-function request(){
-  alert("Fitur minta uang");
-}
-
-function scan(){
-  alert("Fitur scan QR");
+function masuk(){
+  alert("Masuk ke aplikasi...");
 }
 </script>
 
