@@ -1,110 +1,152 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>DANA</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DANA</title>
 
-  <style>
-    body {
-      margin:0;
-      font-family:sans-serif;
-    }
+<style>
+body {
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background:#f1f3f6;
+}
 
-    .center {
-      text-align:center;
-      color:white;
-    }
+/* HEADER */
+.header {
+  background:#108ee9;
+  color:white;
+  padding:20px;
+  border-bottom-left-radius:20px;
+  border-bottom-right-radius:20px;
+}
 
-    .btn {
-      width:80%;
-      max-width:300px;
-      padding:15px;
-      border:none;
-      border-radius:30px;
-      background:white;
-      color:#108ee9;
-      font-weight:bold;
-      font-size:16px;
-    }
-  </style>
+.saldo-card {
+  background:linear-gradient(90deg,#108ee9,#36cfc9);
+  padding:20px;
+  border-radius:15px;
+  margin-top:15px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+.menu {
+  display:flex;
+  justify-content:space-around;
+  margin-top:20px;
+  text-align:center;
+}
+
+.menu div {
+  background:white;
+  padding:15px;
+  border-radius:15px;
+  width:70px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+.menu div:active {
+  transform:scale(0.95);
+}
+
+/* FITUR GRID */
+.grid {
+  display:grid;
+  grid-template-columns: repeat(4,1fr);
+  gap:10px;
+  padding:15px;
+}
+
+.grid div {
+  background:white;
+  padding:10px;
+  border-radius:15px;
+  text-align:center;
+  font-size:12px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+/* NAVBAR */
+.navbar {
+  position:fixed;
+  bottom:0;
+  width:100%;
+  background:white;
+  display:flex;
+  justify-content:space-around;
+  padding:10px 0;
+  box-shadow:0 -3px 10px rgba(0,0,0,0.1);
+}
+</style>
 </head>
 
 <body>
 
-<!-- LANDING -->
-<div id="landing" style="
-height:100vh;
-background:linear-gradient(#108ee9,#36cfc9);
-display:flex;
-flex-direction:column;
-justify-content:space-between;
-align-items:center;
-">
-
-  <!-- ATAS -->
-  <div style="width:100%; padding:20px; color:white; display:flex; justify-content:space-between;">
-    <h2>Blue</h2>
-    <div>☰</div>
-  </div>
-
-  <!-- GAMBAR -->
-  <div class="center">
-    <img src="bg.jpg" width="80%" style="border-radius:20px;">
-    
-    <h2 style="margin-top:15px;">100% Aman</h2>
-    <p>#AmanDariPenipu</p>
-  </div>
-
-  <!-- BUTTON -->
-  <div style="margin-bottom:40px;">
-    <button class="btn" onclick="showLogin()">Masuk</button>
-  </div>
-
-</div>
-
-<!-- LOGIN -->
-<div id="login" style="
-display:none;
-height:100vh;
-background:#108ee9;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-color:white;
-">
-
+<!-- HEADER -->
+<div class="header">
   <h2>Blue Wallet</h2>
 
-  <div style="background:white; padding:20px; border-radius:20px; color:black; width:300px;">
-    
-    <input id="user" placeholder="Nomor 12 digit" maxlength="12" style="width:100%; padding:10px;"><br><br>
-    <input id="pass" type="password" placeholder="PIN 6 digit" maxlength="6" style="width:100%; padding:10px;"><br><br>
-
-    <button onclick="login()" style="width:100%; padding:10px; background:#108ee9; color:white; border:none;">
-      Login
-    </button>
-
-    <p id="error" style="color:red;"></p>
+  <div class="saldo-card">
+    <p>Saldo</p>
+    <h1 id="saldo">Rp 1.250.000</h1>
   </div>
+</div>
 
+<!-- MENU CEPAT -->
+<div class="menu">
+  <div onclick="kirim()">💸<br>Kirim</div>
+  <div onclick="topup()">➕<br>Top Up</div>
+  <div onclick="request()">📥<br>Minta</div>
+  <div onclick="scan()">📷<br>Scan</div>
+</div>
+
+<!-- FITUR -->
+<div class="grid">
+  <div>📱 Pulsa</div>
+  <div>💡 Listrik</div>
+  <div>🎮 Game</div>
+  <div>💳 Kartu</div>
+  <div>🚗 Transport</div>
+  <div>🛒 Belanja</div>
+  <div>📦 Paket</div>
+  <div>➕ Lainnya</div>
+</div>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div>🏠 Home</div>
+  <div>📄 History</div>
+  <div>👤 Profile</div>
 </div>
 
 <script>
-function showLogin() {
-  document.getElementById("landing").style.display = "none";
-  document.getElementById("login").style.display = "flex";
+let saldo = 1250000;
+
+function updateSaldo(){
+  document.getElementById("saldo").innerText =
+    "Rp " + saldo.toLocaleString();
 }
 
-function login() {
-  let u = document.getElementById("user").value;
-  let p = document.getElementById("pass").value;
-
-  if (/^[0-9]{12}$/.test(u) && /^[0-9]{6}$/.test(p)) {
-    alert("Login berhasil!");
-  } else {
-    document.getElementById("error").innerText = "Format salah!";
+function kirim(){
+  let j = prompt("Kirim berapa?");
+  if(j){
+    saldo -= parseInt(j);
+    updateSaldo();
   }
+}
+
+function topup(){
+  let j = prompt("Top up berapa?");
+  if(j){
+    saldo += parseInt(j);
+    updateSaldo();
+  }
+}
+
+function request(){
+  alert("Fitur minta uang");
+}
+
+function scan(){
+  alert("Fitur scan QR");
 }
 </script>
 
